@@ -72,16 +72,6 @@
                 $(document).off('mousemove');
                 $('body').css('cursor', 'default'); 
             });
-            // $(window).on('mouseup', function(e) {
-            //     e.stopPropagation();     
-            //     $(document).off('mousemove');
-            //     $('body').css('cursor', 'default'); 
-            // }).on('mouseleave',function(e){
-            //     console.log(111);
-            //     e.stopPropagation();     
-            //     $(document).off('mousemove');
-            //     $('body').css('cursor', 'default'); 
-            // });
 
             me.on('mouseenter',function(){
                 if(!o.barShow && o.isFadeOut){
