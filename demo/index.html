@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>scrollBar</title>
+    <script src='../js/jquery.1.11.3.min.js'></script>
+    <script src='../js/scrollBar.js'></script>
+    <style>
+        .nav{
+            width: 200px;
+            padding-left: 20px;
+            margin:0;
+            position: fixed;
+            top:0;
+            left:0;
+            list-style: none;
+            line-height: 36px;
+        }
+        .nav .title{
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 50px;
+            cursor: default;
+        }  
+    </style>
+</head>
+
+<body>
+    <ul class="nav">
+        <li class='title'>菜单</li>
+        <li><a href="#">defaultOption</a></li>
+        <li><a href="#">horizontal</a></li>
+        <li><a href="#">styleOption</a></li>
+        <li><a href="#">keyEvent</a></li>
+        <li><a href="#">barShow</a></li>
+    </ul>
+    <iframe src="defaultOption.html" frameborder="0" scrolling='no' width="80%" height='800px' style='margin-left: 220px'></iframe>
+    <script>
+        $('.nav a').on('click',function(e){
+            e.stopPropagation();
+            $('iframe').attr('src',$(this).text()+'.html');
+        });
+    </script>
+</body>
+</html>
