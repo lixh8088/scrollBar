@@ -13,7 +13,7 @@
             // 配置项
             var defaults = {
                 width: 1000,
-                height: 500,
+                height: 300,
                 // 滚动条类型：h水平 v垂直
                 orient: 'v',
                 // 滚动条位置 top bottom left right
@@ -62,10 +62,26 @@
                     scrollContent(computeDistance(e, eve, priDistance, 2));
                 });
             });
-            $(document).on('mouseup', function() {      
+            $(document).on('mouseup', function(e) {
+                e.stopPropagation();     
+                $(document).off('mousemove');
+                $('body').css('cursor', 'default'); 
+            }).on('mouseleave',function(e){
+                console.log(111);
+                e.stopPropagation();     
                 $(document).off('mousemove');
                 $('body').css('cursor', 'default'); 
             });
+            // $(window).on('mouseup', function(e) {
+            //     e.stopPropagation();     
+            //     $(document).off('mousemove');
+            //     $('body').css('cursor', 'default'); 
+            // }).on('mouseleave',function(e){
+            //     console.log(111);
+            //     e.stopPropagation();     
+            //     $(document).off('mousemove');
+            //     $('body').css('cursor', 'default'); 
+            // });
 
             me.on('mouseenter',function(){
                 if(!o.barShow && o.isFadeOut){
@@ -196,11 +212,11 @@
                         } else {
                             y = priDistance + o.scrollDistance
                         }
-                    } else if (event.detail) { //FF
-                        if (event.detail > 0) {
-                            y = priDistance - o.scrollDistance
-                        } else {
+                    } else if (eve.detail) { //FF
+                        if (eve.detail > 0) {
                             y = priDistance + o.scrollDistance
+                        } else {
+                            y = priDistance - o.scrollDistance
                         }
 
                     }
@@ -217,7 +233,7 @@
                         priDistance = bar.position().top;
                     }
                     if (o.orient == 'h') {
-                        switch(event.keyCode){
+                        switch(eve.keyCode){
                             case 37://左
                                 x = priDistance - o.scrollDistance;
                                 break;
@@ -232,7 +248,7 @@
                                 break;
                         }
                     } else if (o.orient == 'v') {
-                        switch(event.keyCode){
+                        switch(eve.keyCode){
                             case 37://左
                                 x = 0;
                                 break;
