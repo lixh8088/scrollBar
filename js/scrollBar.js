@@ -39,11 +39,8 @@
             var Divs = "<div></div>",
                 me = this;
 
-            
-            var bar = $('.' + o.barClass),
-                rail = $('.' + o.railClass),
-                wrapper= $('.' + o.wrapperClass);
-            if(wrapper.length == 0){
+            var wrapper,bar,rail;
+            if($('.' + o.wrapperClass).length == 0){
                 wrapper = $(Divs).addClass(o.wrapperClass);
                 rail = $(Divs).addClass(o.railClass);
                 bar = $(Divs).addClass(o.barClass);
@@ -51,6 +48,12 @@
                 me.parent().append(rail);
                 me.parent().append(bar);
             }
+            bar = $('.' + o.barClass);
+            rail = $('.' + o.railClass);
+            wrapper = $('.' + o.wrapperClass);
+
+                
+                
             // 样式设置
             setStyle();
             // 滚动条的拖动
@@ -339,15 +342,15 @@
                     bar.css({opacity:0});
                 }
             }
+        },
+        scrollBarReset:function(option){
+            this.scrollBar(option);
         }
-        // scrollBarReset:function(option){
-        //     this.scrollBar(option);
-        // }
     });
 
     jQuery.fn.extend({
-        scrollBar: jQuery.fn.scrollBar
-        // scrollBarReset: jQuery.fn.scrollBarReset
+        scrollBar: jQuery.fn.scrollBar,
+        scrollBarReset: jQuery.fn.scrollBarReset
     });
 
 })(jQuery);

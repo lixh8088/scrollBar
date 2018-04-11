@@ -17,7 +17,8 @@
     </style>
 </head>
 <body>
-    <h2>默认配置</h2>
+    <h2>重置滚动条</h2>
+    <button onclick = "$('.text').scrollBarReset({height:200});"">重置滚动条高度为200</button>
     <div style='width: 1000px;margin:100px auto;'>
         <div class="text">
             <h4>夏蝉</h4>
@@ -53,6 +54,8 @@
     </div>
     <script>
         $('.text').scrollBar();
+        // 在滚动区域的宽高有变化时需要重置滚动条的宽高，在这里可以在需要重置时调用scrollBarReset方法，参数与方法scrollBar相同即可
+        // $('.text').scrollBarReset({height:200});
     </script>
 </body>
 </html>
