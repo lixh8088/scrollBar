@@ -1,5 +1,5 @@
 # scrollBar
-首先download下来插件，并引入scrollBar.js(基于jquery)<br>
+首先download下来插件，并引入scrollBar.min.js(基于jquery)<br>
 然后初始化滚动条 $('domClass').scrollBar();
 
 配置项：        width: 1000,<br>
