@@ -19,3 +19,5 @@
                 barRadius:'',<br>
                 railColor:'transparent',<br>
                 railSize:10//滚动轴的宽或高<br>
+                
+ 增加了重置方法，只需要在需要重置滚动条配置时调用方法 scrollBarReset即可，参数与scrollBar相同
