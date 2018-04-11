@@ -21,14 +21,17 @@
             font-weight: bold;
             line-height: 50px;
             cursor: default;
-        }  
+        }
+        .nav .active{
+            font-weight: bold;
+        } 
     </style>
 </head>
 
 <body>
     <ul class="nav">
         <li class='title'>菜单</li>
-        <li><a href="#">defaultOption</a></li>
+        <li><a href="#" class='active'>defaultOption</a></li>
         <li><a href="#">horizontal</a></li>
         <li><a href="#">styleOption</a></li>
         <li><a href="#">keyEvent</a></li>
@@ -38,6 +41,8 @@
     <script>
         $('.nav a').on('click',function(e){
             e.stopPropagation();
+            $('.nav a').removeClass('active');
+            $(this).addClass('active');
             $('iframe').attr('src',$(this).text()+'.html');
         });
     </script>

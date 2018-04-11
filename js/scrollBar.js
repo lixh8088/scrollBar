@@ -39,19 +39,20 @@
             var Divs = "<div></div>",
                 me = this;
 
-            // 样式设置
-            var wrapper = $(Divs).addClass(o.wrapperClass);
-            var rail = $(Divs).addClass(o.railClass);
-            var bar = $(Divs).addClass(o.barClass);
             
-            setStyle();
-            me.wrap(wrapper);
-            me.parent().append(rail);
-            me.parent().append(bar);
-
             var bar = $('.' + o.barClass),
-                rail = $('.' + o.railClass);
-
+                rail = $('.' + o.railClass),
+                wrapper= $('.' + o.wrapperClass);
+            if(wrapper.length == 0){
+                wrapper = $(Divs).addClass(o.wrapperClass);
+                rail = $(Divs).addClass(o.railClass);
+                bar = $(Divs).addClass(o.barClass);
+                me.wrap(wrapper);
+                me.parent().append(rail);
+                me.parent().append(bar);
+            }
+            // 样式设置
+            setStyle();
             // 滚动条的拖动
             bar.on('mousedown', function(e) {
                 e.stopPropagation();
@@ -67,7 +68,6 @@
                 $(document).off('mousemove');
                 $('body').css('cursor', 'default'); 
             }).on('mouseleave',function(e){
-                console.log(111);
                 e.stopPropagation();     
                 $(document).off('mousemove');
                 $('body').css('cursor', 'default'); 
@@ -75,11 +75,11 @@
 
             me.on('mouseenter',function(){
                 if(!o.barShow && o.isFadeOut){
-                    bar.css('opacity',1);
+                    showBar(true);
                 }
             }).on('mouseleave',function(){
                 if(!o.barShow && o.isFadeOut){
-                    bar.css('opacity',0);
+                    showBar(false);
                 }
             });
             me.on('mouseover', function(e) {
@@ -130,7 +130,7 @@
                     backgroundColor: o.barColor,
                     borderRadius: o.barRadius?o.barRadius+'px': Math.ceil(o.barSize/2)+'px',
                     cursor: 'pointer',
-                    opacity:o.barShow?1:0,
+                    // opacity:o.barShow?1:0,
                     position: 'absolute',
                     transition:'opacity 0.5s'
                 });
@@ -138,6 +138,7 @@
                     backgroundColor: o.railColor,
                     position: 'absolute',
                 });
+
                 if (o.orient == 'h') {
                     rail.css({
                         width:o.width+'px',
@@ -154,8 +155,18 @@
                         right: 'auto',
                         top: (o.position == 'bottom') ? 'auto' : Math.ceil(railSize-barSize)/2+'px',
                         bottom: (o.position == 'bottom') ? Math.ceil(o.railSize-o.barSize)/2+'px' : 'auto',
-
                     });
+                    if(wrapper.width() >= me.outerWidth(true)){
+                        showBar(false);
+                        me.width(wrapper.width());
+                        bar.css({width:wrapper.width()})
+                    }else{
+                        if(o.barShow){
+                            showBar(true);
+                        }else{
+                            showBar(false);
+                        }
+                    }
                 } else if (o.orient == 'v') {
                     rail.css({
                         width:o.railSize+'px',
@@ -168,13 +179,24 @@
                     });
                     bar.css({
                         width: o.barSize+'px',
-                        height: Math.floor(parseInt(o.height) * parseInt(o.height) / me.outerHeight(true)),
+                        height: Math.floor(o.height * o.height / me.outerHeight(true)),
                         left: (o.position == 'left') ? Math.ceil(o.railSize-o.barSize)/2+'px' : 'auto',
                         right: (o.position == 'left') ? 'auto' : Math.ceil(o.railSize-o.barSize)/2+'px',
                         top: 0,
                         bottom: 'auto',
 
                     });
+                    if(wrapper.height() >= me.height()){
+                        showBar(false);
+                        me.height(wrapper.height());
+                        bar.css({height:wrapper.height()})
+                    }else{
+                        if(o.barShow){
+                            showBar(true);
+                        }else{
+                            showBar(false);
+                        }
+                    }
                 }
             }
             /*
@@ -309,11 +331,23 @@
                     return bar.position().top;
                 }
             }
+
+            function showBar(flag){
+                if(flag){
+                    bar.css({opacity:1});
+                }else{
+                    bar.css({opacity:0});
+                }
+            }
         }
+        // scrollBarReset:function(option){
+        //     this.scrollBar(option);
+        // }
     });
 
     jQuery.fn.extend({
         scrollBar: jQuery.fn.scrollBar
+        // scrollBarReset: jQuery.fn.scrollBarReset
     });
 
 })(jQuery);
